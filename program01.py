@@ -58,13 +58,13 @@ def es1(ls):
             max1 = max(ls[i])
             ls[i].remove(max1)
         max0 = min(max0, max1)
-        if(ls[i].union(ls[i-1]) == set()):
+        if(ls[i]|(ls[i-1]) == set()):
             counter +=1
-            ls[i] = ls[i].union(ls[i-1])
+            ls[i] = ls[i]|(ls[i-1])
         else:
-            if(max0 > max(ls[i].union(ls[i-1]))):
+            if(max0 >= max(ls[i]|(ls[i-1]))):
                 counter +=1
-                ls[i] = ls[i].union(ls[i-1])
+                ls[i] = ls[i]|(ls[i-1])
             else:
                 break
     return counter
