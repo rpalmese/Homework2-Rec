@@ -45,36 +45,40 @@ ATTENZIONE: quando caricate il file assicuratevi che sia nella codifica UTF8
 def es1(ls):
     # inserisci qui il tuo codice
     ls = toInt(ls)
-    if(len(ls[0]) == 1): 
-        max0 = ls[0].pop()
-    else:
-        max0 = max(ls[0])
-        ls[0].remove(max0)
+    maximum, next_maximum = getMax(ls[0])
     counter = 0
     for i in range(1, len(ls)):
-        if(len(ls[i]) == 1):
-            max1 = ls[i].pop()
-        else:
-            max1 = max(ls[i])
-            ls[i].remove(max1)
-        max0 = min(max0, max1)
-        if(ls[i]|(ls[i-1]) == set()):
-            counter +=1
-            ls[i] = ls[i]|(ls[i-1])
-        else:
-            if(max0 >= max(ls[i]|(ls[i-1]))):
-                counter +=1
-                ls[i] = ls[i]|(ls[i-1])
-            else:
-                break
+        actual_max, next_actual_max = getMax(ls[i])
+        maximum = min(maximum, actual_max)
+        next_maximum = max(next_maximum, next_actual_max)
+        if(maximum >= next_maximum): 
+            counter = i
+        else: break
     return counter
     pass
 
 def toInt(ls):
     lista = []
     for stringa in ls:
-        lista.append({int(x)for x in stringa.split(',')})
+        lista.append(sorted(list({int(x)for x in stringa.split(',')})))
     return lista
+
+'''def getMax(insieme):
+    maximum = max(insieme, default=0)
+    insieme.remove(maximum)
+    next_maximum = max(insieme, default=0)
+    return maximum, next_maximum'''
+    
+def getMax(lista):
+    if(len(lista) == 0):
+        maximum = 0
+        next_maximum = 0
+    elif(len(lista) == 1): 
+        maximum = lista[-1]
+        next_maximum = 0
+    else:
+	    maximum, next_maximum = lista[-1], lista[-2]
+    return maximum, next_maximum
 
 
 if __name__ == '__main__':
